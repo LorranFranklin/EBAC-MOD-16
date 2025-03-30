@@ -1,14 +1,19 @@
 const gulp = require('gulp');
 
 function funcaoPadrao(callback) {
-  console.log('Função padrão executada via gulp');
-  callback();
+  setTimeout(() => {
+    console.log('Função padrão executada via gulp com setTimeout');
+    callback();
+  }, 2000);
+  // console.log('Função padrão executada via gulp');
 }
 
 function dizOi(callback) {
-  console.log('Oi Gulp!');
-  dizTchau(); // Chama a função dizTchau
-  callback();
+  setTimeout(() => {
+    console.log('Oi Gulp!');
+    dizTchau(); // Chama a função dizTchau
+    callback();
+  }, 1000);
 }
 
 function dizTchau() {
@@ -16,6 +21,7 @@ function dizTchau() {
 }
 
 // export default funcaoPadrao;
+
+// exports.default = gulp.parallel(funcaoPadrao, dizOi);
 exports.default = gulp.series(funcaoPadrao, dizOi); // Exporta a função padrão para ser usada em outros arquivos
 exports.dizOi = dizOi; // Exporta a função dizOi para ser usada em outros arquivos
-// exports.default = funcaoPadrao; // Exporta a função padrão para ser usada em outros arquivos
