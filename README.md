@@ -204,3 +204,171 @@ PS C:\Users\Franklin Lorran\Downloads\FrontEnd M16\gulp> npm run gulp
 
 Observa-se que em parallel a execução é bem mais rapida, em series uma função é executada após a outra demorando um pouco mais.
 
+## Como instalar Sass no gulp
+```
+npm install --save-dev gulp-sass
+```
+
+Depois vamos precisar instalar o SASS
+```
+npm install --save-dev sass
+```
+
+Após instalar o ```GULP-SASS e o SASS``` vamos importalos no arquivo ```gulpfile.js```
+```
+const sass = require('gulp-sass')(require('sass')); // Importa o gulp-sass e o sass importação conjunta
+```
+
+## Function que compila o sass
+```
+function compilaSass() {
+  return gulp.src('./source/styles/*.scss') // Pega todos os arquivos .scss dentro da pasta sass
+    .pipe(sass()) // Compila o Sass
+    .pipe(gulp.dest('./build/styles')); // Salva os arquivos compilados na pasta css
+}
+```
+
+exportar o arquivo ```exports.sass = compilaSass; // Exporta a função compilaSass para ser usada em outros arquivos```
+
+testando a function no terminal :
+```
+PS C:\Users\Franklin Lorran\Downloads\FrontEnd M16\gulp> npm run gulp sass
+
+> frontend-m16@1.0.0 gulp
+> gulp sass
+
+[18:46:14] Using gulpfile ~\Downloads\FrontEnd M16\gulp\gulpfile.js
+[18:46:14] Starting 'sass'...
+[18:46:14] Finished 'sass' after 118 ms
+```
+
+Após compilar os arquivos ```main.scss e variaveis.scss``` agora estão tbm no ```build\style``` como ```main.css e variaveis.css``` no entanto ```variaveis.css``` está vazio isso pq ele não precisa ser compilado. vamos corrigir, vamos deletar os arquivos em build\styles e após isso vamos editar o códigop a seguir e depois compilar ele.
+
+```
+function compilaSass() {
+  return gulp.src('./source/styles/main.scss') // Pega todos os arquivos .scss dentro da pasta sass
+    .pipe(sass()) // Compila o Sass e loga os erros
+    .pipe(gulp.dest('./build/styles')); // Salva os arquivos compilados na pasta css
+}
+```
+Compilando o arquivo
+```
+PS C:\Users\Franklin Lorran\Downloads\FrontEnd M16\gulp> npm run gulp sass
+
+> frontend-m16@1.0.0 gulp
+> gulp sass
+
+[18:54:08] Using gulpfile ~\Downloads\FrontEnd M16\gulp\gulpfile.js
+[18:54:08] Starting 'sass'...
+[18:54:08] Finished 'sass' after 97 ms
+```
+
+Agora Vamos fazer com que o arquivo final seja mais limpo e organizado mudando poucas coisas na ```funtion compilaSass```
+```
+function compilaSass() {
+  return gulp.src('./source/styles/main.scss') // Pega todos os arquivos .scss dentro da pasta sass
+    .pipe(sass({
+      outputStyle: 'compressed', // Formato de saída do CSS (compactado)
+
+    })) // Compila o Sass e loga os erros
+    .pipe(gulp.dest('./build/styles')); // Salva os arquivos compilados na pasta css
+}
+```
+
+## Isstalando o mapeamento do ```sass```, assim no dev-tool irá aparecer o arquivo fonte css, que nesse projeto é o main.scss para isso usamos 
+
+```
+npm install --save-dev gulp-sourcemaps
+```
+
+após instalar vamos importar no arquivo ```gulpfile```
+
+```
+const sourceMaps = require('gulp-sourcemaps'); // Importa o gulp-sourcemaps para gerar mapas de origem
+```
+
+e usa-lo na function compilaSass
+```
+function compilaSass() {
+  return gulp.src('./source/styles/main.scss') // Pega todos os arquivos .scss dentro da pasta sass
+    .pipe(sourceMaps.init()) // Inicializa o sourcemap
+    .pipe(sass({
+      outputStyle: 'compressed', // Formato de saída do CSS (compactado)
+
+    }))
+    .pipe(sourceMaps.write('./maps')) // Escreve o sourcemap na mesma pasta do arquivo CSS
+    .pipe(gulp.dest('./build/styles')); // Salva os arquivos compilados na pasta css
+}
+```
+
+Utilizando o WATCHS em gulp
+
+```
+exports.watch = function () {
+  gulp.watch('./source/styles/*.scss', gulp.series(compilaSass)); // Observa os arquivos .scss e executa a função compilaSass quando houver alterações
+}
+```
+Para iniciar, vamos ao terminal 
+```
+npm run gulp watch
+```
+Após o comando toda atualização no arquivo sera rodado o watch, evitando irmos ao terminal fazer isso novamente
+
+## Agora Vamos comprimir arquivo JavaScript
+Mas antes vamos instalar ```npm install --save-dev gulp-uglify```   
+Após instalar vamos importar no arquivo ```gulpfile```
+
+```
+const uglify = require('gulp-uglify'); // Importa o gulp-uglify para minificar arquivos JavaScript
+```
+
+## Obfuscate
+Outra coisa que é comum é fazer a ofuscação do projeto, evitando o fácil acesso de outros programadores ao projeto. Para isso iremos precisar de um novo pacote 
+```
+npm install --save-dev gulp-obfuscate
+```
+Após instalar iremos importar
+
+```
+const obfuscate = require('gulp-obfuscate'); // Importa o gulp-obfuscate para ofuscar arquivos JavaScript
+
+```
+Após isso iremos chamar/usar na function 
+```
+function comprimeJavascript() {
+  return gulp.src('./source/scripts/*.js') // Pega todos os arquivos .js dentro da pasta scripts
+    .pipe(uglify()) // Minifica os arquivos JavaScript
+    .pipe(obfuscate()) // Ofusca os arquivos JavaScript
+    .pipe(gulp.dest('./build/scripts')); // Salva os arquivos compilados na pasta js
+}
+```
+E depois fazemos a exportação
+```
+exports.sass = compilaSass; // Exporta a função compilaSass para ser usada em outros arquivos
+exports.watch = function () {
+  gulp.watch('./source/styles/*.scss', {ignoreInitial: false}, gulp.series(compilaSass)); // Observa os arquivos .scss e executa a função compilaSass quando houver alterações
+}
+exports.javaScript = comprimeJavascript; // Exporta a função comprimeJavascript para ser usada em outros arquivos
+```
+
+## Minificando imagens
+Vamos instalar o pacote
+```
+npm install --save-dev gulp-imagemin
+```
+Após isso vamos importar e usar na function 
+
+```
+const imagemin = require('gulp-imagemin'); // Importa o gulp-imagemin para otimizar imagens
+```
+```
+function comprimeImagens() {
+  return gulp.src('./source/images/*') // Pega todos os arquivos dentro da pasta images
+    .pipe(imagemin()) // Otimiza as imagens
+    .pipe(gulp.dest('./build/images')); // Salva as imagens otimizadas na pasta images
+}
+```
+Exportando a function 
+```
+exports.imagemin = comprimeImagens; // Exporta a função comprimeImagens para ser usada em outros arquivos
+```

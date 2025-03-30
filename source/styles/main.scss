@@ -1,0 +1,6 @@
+@use 'variaveis';
+
+body {
+  background-color: variaveis.$cor-fundo;
+  color: variaveis.$cor-texto;
+}

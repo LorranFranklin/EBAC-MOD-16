@@ -1,0 +1,1 @@
+{"version":3,"sources":["main.scss","C:/Users/Franklin%20Lorran/Downloads/FrontEnd%20M16/gulp/source/styles/variaveis.scss"],"names":[],"mappings":"AAEA;EACE,kBCHU;EDIV,OCHU","sourcesContent":["@use 'variaveis';\r\n\r\nbody {\r\n  background-color: variaveis.$cor-fundo;\r\n  color: variaveis.$cor-texto;\r\n}","$cor-fundo: #1360f0;\r\n$cor-texto: #333;"],"file":"../main.css"}
