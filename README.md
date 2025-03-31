@@ -370,5 +370,36 @@ function comprimeImagens() {
 ```
 Exportando a function 
 ```
-exports.imagemin = comprimeImagens; // Exporta a função comprimeImagens para ser usada em outros arquivos
+exports.images = comprimeImagens; // Exporta a função comprimeImagens para ser usada em outros arquivos
 ```
+## Minificando images
+Iremos criar uma pasta ```images``` em ```source``` e uma em ```build```, a pasta ```images``` em ```source``` irá conter imagens, e a pasta em build irá receber as imagens minificadas.
+
+
+Após criar as pastas e a ```function``` e fazer sua exportação iremos rodar a ```function``` no ```terminal```
+```
+PS C:\Users\Franklin Lorran\Downloads\FrontEnd M16\gulp> npm run gulp images
+
+> frontend-m16@1.0.0 gulp
+> gulp images
+
+Error [ERR_REQUIRE_ASYNC_MODULE]: require() cannot be used on an ESM graph with top-level await. Use import() instead. To see where the top-level await comes from, use --experimental-print-required-tla.
+    at ModuleJobSync.runSync (node:internal/modules/esm/module_job:392:13)
+    at ModuleLoader.importSyncForRequire (node:internal/modules/esm/loader:360:47)
+    at loadESMFromCJS (node:internal/modules/cjs/loader:1385:24)
+    at Module._compile (node:internal/modules/cjs/loader:1536:5)
+    at Object..js (node:internal/modules/cjs/loader:1706:10)
+    at Module.load (node:internal/modules/cjs/loader:1289:32)
+    at Function._load (node:internal/modules/cjs/loader:1108:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:220:24)
+    at Module.require (node:internal/modules/cjs/loader:1311:12) {
+  code: 'ERR_REQUIRE_ASYNC_MODULE'
+  ```
+
+  Observa-se que recebemos um erro como retorno. isso aconteceu pq a dependencia de minificação que instalamos antes não pode ser importada como foi. por isso vamos instalar uma dependencia com versão anterior.
+
+```
+npm install --save-dev gulp-imagemin@7.1.0
+```
+Após instalar, basta rodar o npm ```npm run gulp images``` as imagens minificadas serão criadas

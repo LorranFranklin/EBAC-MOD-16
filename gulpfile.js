@@ -59,4 +59,5 @@ exports.watch = function () {
   gulp.watch('./source/styles/*.scss', {ignoreInitial: false}, gulp.series(compilaSass)); // Observa os arquivos .scss e executa a função compilaSass quando houver alterações
 }
 exports.javaScript = comprimeJavascript; // Exporta a função comprimeJavascript para ser usada em outros arquivos
-exports.imagemin = comprimeImagens; // Exporta a função comprimeImagens para ser usada em outros arquivos
+exports.images = comprimeImagens; // Exporta a função comprimeImagens para ser usada em outros arquivos
+
