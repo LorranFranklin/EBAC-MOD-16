@@ -1,6 +1,29 @@
 # GULP - Studies
 
-## AO USAR O GULP PERCEBE-SE QUE A AUTOMAÇÃO DE TAREFAS FICA MAIS FÁCIL. 
+## Vamos iniciar um novo projeto no terminal
+Mas antes precisamos instalar o ```gulp globalmente```
+```
+npm install --global gulp-cli
+```
+Após isso iniciamos nosso projeto com o ```node```
+```
+npm init
+```
+E vai Dando ```enter``` em todas as perguntas que aparecem.  
+Após isso, instalamos o ```gulp localmente```
+```
+npm install --save-dev gulp
+```
+Após isso, vamos até o arquivo ```package.json``` e acrescentamos o ```gulp no script```
+```
+  "scripts": {
+    "gulp": "gulp",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+```
+## Após isso criamos o arquivo ```gulpfile.js``` e adiconamos a pasta ```node_modules``` no ```gitignore```
+
+AO USAR O GULP PERCEBE-SE QUE A AUTOMAÇÃO DE TAREFAS FICA MAIS FÁCIL. 
 Básicamente o Gulp trabalha com callbacks e na nossa função precisamos adicionar.
 ## PARA RODAR OU EXECUTAR UMA tarefa NO TERMINAL USAMOS:
 

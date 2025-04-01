@@ -55,6 +55,8 @@ exports.default = gulp.parallel(funcaoPadrao, dizOi);
 // exports.default = gulp.series(funcaoPadrao, dizOi); // Exporta a função padrão para ser usada em outros arquivos
 exports.dizOi = dizOi; // Exporta a função dizOi para ser usada em outros arquivos
 exports.sass = compilaSass; // Exporta a função compilaSass para ser usada em outros arquivos
+
+
 exports.watch = function () {
   gulp.watch('./source/styles/*.scss', {ignoreInitial: false}, gulp.series(compilaSass)); // Observa os arquivos .scss e executa a função compilaSass quando houver alterações
 }
