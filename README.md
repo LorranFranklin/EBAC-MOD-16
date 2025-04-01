@@ -338,7 +338,10 @@ npm run gulp watch
 Após o comando toda atualização no arquivo sera rodado o watch, evitando irmos ao terminal fazer isso novamente
 
 ## Agora Vamos comprimir arquivo JavaScript
-Mas antes vamos instalar ```npm install --save-dev gulp-uglify```   
+## Mas antes vamos instalar 
+```
+npm install --save-dev gulp-uglify
+```   
 Após instalar vamos importar no arquivo ```gulpfile```
 
 ```
